@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4543480346637782}
   - component: {fileID: 212321348107002370}
+  - component: {fileID: 114953959428463916}
   m_Layer: 0
   m_Name: beer_unit
   m_TagString: Untagged
@@ -40,6 +41,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114953959428463916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1971884104684782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27ac421fa0a53fc49a3c0b01ce3349db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beerSpeed: 2
 --- !u!212 &212321348107002370
 SpriteRenderer:
   m_ObjectHideFlags: 1

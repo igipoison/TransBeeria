@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,17 @@ public class LevelLoader : MonoBehaviour {
     public GameObject switchableObject;
     public GameObject rootObject;
     public GameObject beerUnit;
+    
+
+    public void Subscribe(SwitchHandler s)
+    {
+        s.click += new SwitchHandler.ClickHandler(HeardIt);
+    }
+
+    private void HeardIt(SwitchHandler switchHandler, EventArgs e)
+    {
+        Debug.Log(switchHandler.currentIndex + ";" + switchHandler.gameObject.name);
+    }
 
     // Use this for initialization
     void Start () {
@@ -75,6 +87,9 @@ public class LevelLoader : MonoBehaviour {
         {
             var isRoot = ((SwitchNode)node).isRoot;
             var switchSprite = Instantiate(isRoot? rootObject : switchableObject) as GameObject;
+            var handler = switchSprite.GetComponent<SwitchHandler>();
+            if(handler!=null)
+            this.Subscribe(handler);
             switchSprite.transform.position = node.coordinates;
             (node as SwitchNode).childs.ForEach((Node switchNodeChild) =>
             {
