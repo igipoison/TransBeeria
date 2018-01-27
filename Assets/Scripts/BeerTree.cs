@@ -10,6 +10,12 @@ namespace Assets.Scripts
         public SwitchNode start;
         private List<Node> nodes = new List<Node>();
 
+        public BeerTree(SwitchNode start)
+        {
+            this.start = start;
+            nodes = new List<Node>();
+            nodes.Add(start);
+        }
         public void AddHouse(HouseNode house, string nodeId)
         {
             SwitchNode parentSwitch = (SwitchNode) nodes.Where(s => s.nodeId.Equals(nodeId)).FirstOrDefault();
@@ -25,11 +31,12 @@ namespace Assets.Scripts
 
         }
 
-        public BeerTree(SwitchNode start)
+
+
+        public void SetNodeState(string nodeId, int status)
         {
-            this.start = start;
-            nodes = new List<Node>();
-            nodes.Add(start);
+            ((SwitchNode)nodes.FirstOrDefault
+                (n => n.nodeId.Equals(nodeId))).s.state = status;
         }
     }
 }

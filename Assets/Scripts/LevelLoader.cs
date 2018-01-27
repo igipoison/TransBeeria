@@ -13,7 +13,7 @@ public class LevelLoader : MonoBehaviour {
     public GameObject switchableObject;
     public GameObject rootObject;
     public GameObject beerUnit;
-    
+    private BeerTree beerTree;
 
     public void Subscribe(SwitchHandler s)
     {
@@ -22,7 +22,7 @@ public class LevelLoader : MonoBehaviour {
 
     private void HeardIt(SwitchHandler switchHandler, EventArgs e)
     {
-        Debug.Log(switchHandler.currentIndex + ";" + switchHandler.gameObject.name);
+        beerTree.SetNodeState(switchHandler.name, switchHandler.currentIndex);
     }
 
     // Use this for initialization
@@ -67,6 +67,7 @@ public class LevelLoader : MonoBehaviour {
 
         var switchSprite = Instantiate(beerUnit) as GameObject;
         switchSprite.transform.position = new Vector2(0.0f, -1.0f);
+        beerTree = bT;
     }
 	
     void GenerateSprites(BeerTree bt)
@@ -80,16 +81,23 @@ public class LevelLoader : MonoBehaviour {
         if (node.GetType() == typeof(HouseNode))
         {
             var houseSprite = Instantiate(housePrefab) as GameObject;
-
+            houseSprite.name = "HouseNode#" + node.nodeId;
             houseSprite.transform.position = node.coordinates;
         }
         else
         {
             var isRoot = ((SwitchNode)node).isRoot;
             var switchSprite = Instantiate(isRoot? rootObject : switchableObject) as GameObject;
+
             var handler = switchSprite.GetComponent<SwitchHandler>();
-            if(handler!=null)
-            this.Subscribe(handler);
+            
+            switchSprite.name =  node.nodeId;
+            if(!isRoot)
+            ((SwitchNode)node).s.state = handler.currentIndex;
+            if (handler != null)
+            {
+                this.Subscribe(handler);
+            }
             switchSprite.transform.position = node.coordinates;
             (node as SwitchNode).childs.ForEach((Node switchNodeChild) =>
             {
