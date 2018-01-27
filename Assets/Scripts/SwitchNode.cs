@@ -10,11 +10,13 @@ namespace Assets.Scripts
     {
         public Switch s;
         public List<Node> childs;
+        public bool isRoot;
 
-        public SwitchNode(Vector2 coordinates, string nodeId, Switch s) : base(coordinates, nodeId)
+        public SwitchNode(Vector2 coordinates, string nodeId, Switch s, bool isRoot = false) : base(coordinates, nodeId)
         {
             childs = new List<Node>();
             this.s = s;
+            this.isRoot = isRoot;
         }
     }
 }

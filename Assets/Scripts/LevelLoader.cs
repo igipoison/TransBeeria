@@ -9,9 +9,9 @@ public class LevelLoader : MonoBehaviour {
     public GameObject housePrefab;
     public GameObject pipeHorizontal;
     public GameObject pipeVertical;
-    public GameObject pipe;
-
-    public int a;
+    public GameObject switchableObject;
+    public GameObject rootObject;
+    public GameObject beerUnit;
 
     // Use this for initialization
     void Start () {
@@ -19,7 +19,7 @@ public class LevelLoader : MonoBehaviour {
         Vector2 coordinatesRoot = new Vector2(0.0f,0.0f);
         string nodeIdSwitchRoot = "SWITCH_ROOT";
         Switch switchRoot = new Switch();
-        SwitchNode switchNodeRoot = new SwitchNode(coordinatesRoot, nodeIdSwitchRoot, switchRoot);
+        SwitchNode switchNodeRoot = new SwitchNode(coordinatesRoot, nodeIdSwitchRoot, switchRoot,true);
         
         Vector2 coordinatesOne = new Vector2(0.0f, -5.0f);
         string nodeIdSwitchOne = "SWITCH_ONE";
@@ -52,6 +52,9 @@ public class LevelLoader : MonoBehaviour {
 
         GenerateSprites(bT);
         GeneratePipes(bT);
+
+        var switchSprite = Instantiate(beerUnit) as GameObject;
+        switchSprite.transform.position = new Vector2(0.0f, -1.0f);
     }
 	
     void GenerateSprites(BeerTree bt)
@@ -70,7 +73,8 @@ public class LevelLoader : MonoBehaviour {
         }
         else
         {
-            var switchSprite = Instantiate(pipe) as GameObject;
+            var isRoot = ((SwitchNode)node).isRoot;
+            var switchSprite = Instantiate(isRoot? rootObject : switchableObject) as GameObject;
             switchSprite.transform.position = node.coordinates;
             (node as SwitchNode).childs.ForEach((Node switchNodeChild) =>
             {
