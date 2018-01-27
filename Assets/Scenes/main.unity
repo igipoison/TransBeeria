@@ -140,14 +140,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26415f4717c766b46b31a9d2941c9707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  housePrefab: {fileID: 1866262867168470, guid: 7b1f4f54f91e60549a756949b6d6d948,
+  housePrefab: {fileID: 1248505732925902, guid: 0027d091172937a4cb878c9ba7a43d07,
     type: 2}
   pipeHorizontal: {fileID: 1223267648048472, guid: 430aabde7c1e05743814cc5043004b20,
     type: 2}
   pipeVertical: {fileID: 1643698666323592, guid: 72810ad84209ffa4198e65de9af53d87,
     type: 2}
-  pipe: {fileID: 1833532664341320, guid: f412c510295e3dd4da689be4a0834141, type: 2}
-  a: 0
+  switchableObject: {fileID: 1833532664341320, guid: f412c510295e3dd4da689be4a0834141,
+    type: 2}
+  rootObject: {fileID: 1615673838914790, guid: 00a42c83666453e47a321999542ef9c0, type: 2}
+  beerUnit: {fileID: 1971884104684782, guid: 97c5874d5e1124b4faf480e74976f793, type: 2}
 --- !u!4 &1507396972
 Transform:
   m_ObjectHideFlags: 0
