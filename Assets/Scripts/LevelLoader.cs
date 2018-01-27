@@ -27,10 +27,10 @@ public class LevelLoader : MonoBehaviour {
 
     public static void Subscribe(SwitchHandler s)
     {
-        s.click += new SwitchHandler.ClickHandler(HeardIt);
+        s.click += new SwitchHandler.ClickHandler(ChangeState);
     }
 
-    private static void HeardIt(SwitchHandler switchHandler, EventArgs e)
+    private static void ChangeState(SwitchHandler switchHandler, EventArgs e)
     {
         beerTree.SetNodeState(switchHandler.name, switchHandler.currentIndex);
     }

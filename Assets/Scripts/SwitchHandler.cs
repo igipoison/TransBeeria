@@ -15,7 +15,8 @@ public class SwitchHandler : MonoBehaviour {
     private int numberOfSwitches=3;
 	// Use this for initialization
 	void Start () {
-        currentIndex = 1;
+
+        currentIndex = 0;
         this.gameObject.GetComponent<SpriteRenderer>().sprite = switches[currentIndex];
 
         objectHighlight = new GameObject();
@@ -44,7 +45,8 @@ public class SwitchHandler : MonoBehaviour {
 
     Sprite getNextSprite()
     {
-        Sprite result = switches[(currentIndex++) % numberOfSwitches];
+        currentIndex++;
+        Sprite result = switches[(currentIndex) % numberOfSwitches];
         currentIndex = (currentIndex) % numberOfSwitches;
         return result;
     }
