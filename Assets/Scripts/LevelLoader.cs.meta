@@ -1,11 +1,17 @@
 fileFormatVersion: 2
 guid: 26415f4717c766b46b31a9d2941c9707
-timeCreated: 1517052928
+timeCreated: 1517063854
 licenseType: Free
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - housePrefab: {fileID: 1866262867168470, guid: 7b1f4f54f91e60549a756949b6d6d948,
+      type: 2}
+  - pipeHorizontal: {fileID: 1623211042177128, guid: 430aabde7c1e05743814cc5043004b20,
+      type: 2}
+  - pipeVertical: {fileID: 1112410901585420, guid: 72810ad84209ffa4198e65de9af53d87,
+      type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
