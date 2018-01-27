@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 1859225325
+    locked: 0
+  - name: BeerLayer
+    uniqueID: 1445945089
+    locked: 0
+  - name: PipesLayer
+    uniqueID: 4214470215
+    locked: 0
+  - name: HousesLayer
+    uniqueID: 560671843
+    locked: 0
