@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -9,5 +10,11 @@ namespace Assets.Scripts
     {
         public Switch s;
         public List<Node> childs;
+
+        public SwitchNode(Vector2 coordinates, string nodeId, Switch s) : base(coordinates, nodeId)
+        {
+            childs = new List<Node>();
+            this.s = s;
+        }
     }
 }

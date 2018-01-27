@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class Switch : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public Sprite rootSwitch;
+    public Sprite leftSwitch;
+    public Sprite rightSwitch;
+    public Sprite verticalSwitch;
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
