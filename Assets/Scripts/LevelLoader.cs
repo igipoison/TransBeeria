@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour {
 
-
     public GameObject housePrefab;
     public GameObject pipeHorizontal;
     public GameObject pipeVertical;
