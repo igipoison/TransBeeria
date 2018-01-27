@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -139,9 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26415f4717c766b46b31a9d2941c9707, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  housePrefab: {fileID: 0}
-  pipeHorizontal: {fileID: 0}
-  pipeVertical: {fileID: 0}
+  housePrefab: {fileID: 1866262867168470, guid: 7b1f4f54f91e60549a756949b6d6d948,
+    type: 2}
+  pipeHorizontal: {fileID: 1223267648048472, guid: 430aabde7c1e05743814cc5043004b20,
+    type: 2}
+  pipeVertical: {fileID: 1643698666323592, guid: 72810ad84209ffa4198e65de9af53d87,
+    type: 2}
+  pipe: {fileID: 1833532664341320, guid: f412c510295e3dd4da689be4a0834141, type: 2}
   a: 0
 --- !u!4 &1507396972
 Transform:
@@ -208,7 +213,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.694031
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -219,6 +224,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -230,7 +236,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2085043439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -5.74, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
