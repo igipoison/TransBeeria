@@ -10,15 +10,21 @@ public class SwitchHandler : MonoBehaviour {
     private int numberOfSwitches=3;
 	// Use this for initialization
 	void Start () {
-        
+
+        System.Random r = new System.Random(DateTime.Now.Millisecond);
+        currentIndex = r.Next(3);
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = getNextSprite();
     }
-	
 	
     void OnMouseDown()
     {
-        Debug.Log(this.gameObject.name);
-        Sprite currentSwitch = switches[(currentIndex++) % numberOfSwitches];
-        this.gameObject.GetComponent<SpriteRenderer>().sprite = currentSwitch;
+        this.gameObject.GetComponent<SpriteRenderer>().sprite = getNextSprite();
+    }
+
+    Sprite getNextSprite()
+    {
+        Sprite result = switches[(currentIndex++) % numberOfSwitches];
+        return result;
     }
 
     void Update () {
