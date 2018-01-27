@@ -6,6 +6,8 @@ using UnityEngine;
 public class SwitchHandler : MonoBehaviour {
 
     public Sprite[] switches;
+    public Sprite switchHighlight;
+    private GameObject objectHighlight;
     public int currentIndex;
     public EventArgs e = null;
     public event ClickHandler click;
@@ -17,13 +19,32 @@ public class SwitchHandler : MonoBehaviour {
         System.Random r = new System.Random(DateTime.Now.Millisecond);
         currentIndex = r.Next(3);
         this.gameObject.GetComponent<SpriteRenderer>().sprite = getNextSprite();
+<<<<<<< HEAD
         
+=======
+
+        objectHighlight = new GameObject();
+        objectHighlight.transform.position = this.gameObject.transform.position;
+        objectHighlight.AddComponent<SpriteRenderer>();
+        objectHighlight.GetComponent<SpriteRenderer>().sprite = switchHighlight;
+        objectHighlight.GetComponent<SpriteRenderer>().color = Color.clear;
+>>>>>>> c1eedcad81d991d997a25b731cbb112e82dee4cf
     }
 	
     void OnMouseDown()
     {
         this.gameObject.GetComponent<SpriteRenderer>().sprite = getNextSprite();
         click(this, e);
+    }
+
+    void OnMouseOver()
+    {
+        objectHighlight.GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    void OnMouseExit()
+    {
+        objectHighlight.GetComponent<SpriteRenderer>().color = Color.clear;
     }
 
     Sprite getNextSprite()

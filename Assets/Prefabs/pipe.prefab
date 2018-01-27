@@ -82,6 +82,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: ccc49bba4bc573245845362a7c4e7028, type: 3}
   - {fileID: 21300000, guid: 33b3c04a8bf5deb43a69b9236859a2b5, type: 3}
   - {fileID: 21300000, guid: abb94107c77a1cb4c8e099a4d5ef4c98, type: 3}
+  switchHighlight: {fileID: 21300000, guid: cebaf9e75cf5bfe498c464d6a6450629, type: 3}
   currentIndex: 0
 --- !u!212 &212549030213645418
 SpriteRenderer:
