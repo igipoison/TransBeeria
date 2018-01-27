@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class BeerSpawner : MonoBehaviour {
 
+    [Range(1,30)]
     public int spawningInterval = 10; // seconds
+
+    [Range(1, 10)]
     public int numberOfBeerUnitsPerRound = 10;
+
     public GameObject beerUnitPrefab;
 
     private float waitingForNewRoundTimer = 0.0f;
