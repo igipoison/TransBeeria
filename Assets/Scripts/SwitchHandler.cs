@@ -25,6 +25,7 @@ public class SwitchHandler : MonoBehaviour {
         objectHighlight.AddComponent<SpriteRenderer>();
         objectHighlight.GetComponent<SpriteRenderer>().sprite = switchHighlight;
         objectHighlight.GetComponent<SpriteRenderer>().color = Color.clear;
+        objectHighlight.GetComponent<SpriteRenderer>().sortingLayerName = "HousesLayer";
     }
 	
     void OnMouseDown()
