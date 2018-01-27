@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour {
 
-    
+
+    public GameObject housePrefab;
+    public GameObject pipePrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -44,8 +46,33 @@ public class LevelLoader : MonoBehaviour {
         bT.AddHouse(houseNodeTwo, nodeIdSwitchOne);
         bT.AddHouse(houseNodeThree, nodeIdSwitchTwo);
 
+        GenerateSprites(bT);
     }
 	
+    void GenerateSprites(BeerTree bt)
+    {
+        SwitchNode startNode = bt.start;
+        GenerateSprite(startNode);
+    }
+
+    void GenerateSprite(Node node)
+    {
+        if (node.GetType() == typeof(HouseNode))
+        {
+            var houseSprite = Instantiate(housePrefab) as GameObject;
+            houseSprite.transform.position = node.coordinates;
+        }
+        else
+        {
+            var switchSprite = Instantiate(pipePrefab) as GameObject;
+            switchSprite.transform.position = node.coordinates;
+            (node as SwitchNode).childs.ForEach((Node switchNodeChild) =>
+            {
+                GenerateSprite(switchNodeChild);
+            });
+        }
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

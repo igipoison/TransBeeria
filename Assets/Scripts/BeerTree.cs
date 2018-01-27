@@ -7,7 +7,7 @@ namespace Assets.Scripts
 {
     public class BeerTree
     {
-        public Node start;
+        public SwitchNode start;
         private List<Node> nodes = new List<Node>();
 
         public void AddHouse(HouseNode house, string nodeId)
