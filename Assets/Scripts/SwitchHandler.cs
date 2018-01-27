@@ -19,16 +19,12 @@ public class SwitchHandler : MonoBehaviour {
         System.Random r = new System.Random(DateTime.Now.Millisecond);
         currentIndex = r.Next(3);
         this.gameObject.GetComponent<SpriteRenderer>().sprite = getNextSprite();
-<<<<<<< HEAD
-        
-=======
 
         objectHighlight = new GameObject();
         objectHighlight.transform.position = this.gameObject.transform.position;
         objectHighlight.AddComponent<SpriteRenderer>();
         objectHighlight.GetComponent<SpriteRenderer>().sprite = switchHighlight;
         objectHighlight.GetComponent<SpriteRenderer>().color = Color.clear;
->>>>>>> c1eedcad81d991d997a25b731cbb112e82dee4cf
     }
 	
     void OnMouseDown()

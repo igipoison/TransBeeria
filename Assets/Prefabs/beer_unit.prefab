@@ -20,11 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4543480346637782}
   - component: {fileID: 212321348107002370}
-<<<<<<< HEAD
-  - component: {fileID: 114953959428463916}
-=======
   - component: {fileID: 114032975414900666}
->>>>>>> c1eedcad81d991d997a25b731cbb112e82dee4cf
   m_Layer: 0
   m_Name: beer_unit
   m_TagString: Untagged
@@ -45,11 +41,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!114 &114953959428463916
-=======
 --- !u!114 &114032975414900666
->>>>>>> c1eedcad81d991d997a25b731cbb112e82dee4cf
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
