@@ -13,6 +13,7 @@ namespace Assets.Scripts
         public BeerTree(SwitchNode start)
         {
             this.start = start;
+            this.start.switchObject.state = 2;
             nodes = new List<Node>();
             nodes.Add(start);
         }
@@ -31,12 +32,15 @@ namespace Assets.Scripts
 
         }
 
-
-
         public void SetNodeState(string nodeId, int status)
         {
             ((SwitchNode)nodes.FirstOrDefault
-                (n => n.nodeId.Equals(nodeId))).s.state = status;
+                (n => n.nodeId.Equals(nodeId))).switchObject.state = status;
+        }
+
+        public SwitchNode getRootNode()
+        {
+            return start;
         }
     }
 }

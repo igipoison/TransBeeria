@@ -8,14 +8,14 @@ namespace Assets.Scripts
 {
     public class SwitchNode : Node
     {
-        public Switch s;
+        public Switch switchObject;
         public List<Node> childs;
         public bool isRoot;
 
         public SwitchNode(Vector2 coordinates, string nodeId, Switch s, bool isRoot = false) : base(coordinates, nodeId)
         {
             childs = new List<Node>();
-            this.s = s;
+            this.switchObject = s;
             this.isRoot = isRoot;
         }
     }

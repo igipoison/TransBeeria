@@ -6,20 +6,31 @@ using UnityEngine;
 
 public class LevelLoader : MonoBehaviour {
 
+    private static LevelLoader instance = null;
+
     public GameObject housePrefab;
     public GameObject pipeHorizontal;
     public GameObject pipeVertical;
     public GameObject switchableObject;
     public GameObject rootObject;
     public GameObject beerUnit;
-    private BeerTree beerTree;
+    private static BeerTree beerTree;
+    
 
-    public void Subscribe(SwitchHandler s)
+    public static LevelLoader getInstance()
+    {
+        if (instance == null)
+            instance = new LevelLoader();
+
+        return instance;
+    }
+
+    public static void Subscribe(SwitchHandler s)
     {
         s.click += new SwitchHandler.ClickHandler(HeardIt);
     }
 
-    private void HeardIt(SwitchHandler switchHandler, EventArgs e)
+    private static void HeardIt(SwitchHandler switchHandler, EventArgs e)
     {
         beerTree.SetNodeState(switchHandler.name, switchHandler.currentIndex);
     }
@@ -68,6 +79,11 @@ public class LevelLoader : MonoBehaviour {
         switchSprite.transform.position = new Vector2(0.0f, -1.0f);
         beerTree = bT;
     }
+
+    public BeerTree GetBeerTree()
+    {
+        return beerTree;
+    }
 	
     void GenerateSprites(BeerTree bt)
     {
@@ -92,10 +108,10 @@ public class LevelLoader : MonoBehaviour {
             
             switchSprite.name =  node.nodeId;
             if(!isRoot)
-            ((SwitchNode)node).s.state = handler.currentIndex;
+            ((SwitchNode)node).switchObject.state = handler.currentIndex;
             if (handler != null)
             {
-                this.Subscribe(handler);
+                Subscribe(handler);
             }
             switchSprite.transform.position = node.coordinates;
             (node as SwitchNode).childs.ForEach((Node switchNodeChild) =>
