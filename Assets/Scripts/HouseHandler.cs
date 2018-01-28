@@ -42,7 +42,7 @@ public class HouseHandler : MonoBehaviour
         {
             internalBeerInterval = 0.0f;
 
-            if (currentLiters <= currentBeerLitersGoal)
+            if (currentLiters >= currentBeerLitersGoal)
                 AskForBeer();
         }
         else
