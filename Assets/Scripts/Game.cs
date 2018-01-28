@@ -9,12 +9,18 @@ public class Game : MonoBehaviour {
     private static int score = 0;
     private static int beersDispatched = 0;
 
+    public static void Reset()
+    {
+        score = 0;
+        beersDispatched = 0;
+    }
+
     public static void UpdateBeersDispatched(int delta)
     {
         beersDispatched += delta;
         UpdateScoreText();
 
-        if (beersDispatched >= 100)
+        if (beersDispatched > StartGame.getLevel() * 2 * 10)
         {
             GameFinished();
         }
@@ -39,6 +45,7 @@ public class Game : MonoBehaviour {
 
     private static void GameFinished()
     {
+        Reset();
         levelChanger.StartNewLevel();
         Debug.Log("GAME FINISHED. Score: " + score);
     }
@@ -47,7 +54,12 @@ public class Game : MonoBehaviour {
 	void Start () {
         RandomUtils.Initialize();
         levelChanger = GetComponent<StartGame>();
-	}
+        string levelName;
+        if (StartGame.getLevel() < 4) levelName = StartGame.getLevel() + "";
+        else levelName = "God";
+        (GameObject.Find("TextLevel").GetComponent<Text>() as Text).text = "Level: " + levelName;
+
+    }
 
 	
 	// Update is called once per frame

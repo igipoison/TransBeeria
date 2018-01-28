@@ -193,8 +193,8 @@ public class LevelLoader : MonoBehaviour {
         for (int i = 0; i < numOfSwitches; i++)
         {
 
-            SwitchNode newSwitch = new SwitchNode(new Vector2(0.0f, y - 5.0f), "SWITCH_" + idSwitchCounter++, new Switch(), false);
-            y = y - 5;
+            SwitchNode newSwitch = new SwitchNode(new Vector2(0.0f, y - 3.0f), "SWITCH_" + idSwitchCounter++, new Switch(), false);
+            y = y - 3;
             numOfHouses = RandomUtils.GetRandomNumber(1, 4);
 
             if (i == 0)

@@ -31,7 +31,10 @@ public class StartGame : MonoBehaviour {
     public void StartNewLevel()
     {
         Debug.Log("new level called");
-        currentLevel++; 
+
+        if (currentLevel <= 4)
+            currentLevel++; 
+
         if (currentLevel > 1)
         {
            SceneManager.UnloadScene("main");
