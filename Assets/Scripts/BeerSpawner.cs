@@ -27,7 +27,6 @@ public class BeerSpawner : MonoBehaviour {
     {
         waitingForNewRoundTimer = MAX_SPAWNING_START_TIME; //RandomUtils.GetRandomNumber(0, MAX_SPAWNING_START_TIME);
         numberOfBeerUnitsPerRound = MAX_BEER_UNITS_PER_ROUND; // RandomUtils.GetRandomNumber(1, MAX_BEER_UNITS_PER_ROUND);
-
     }
 	
 	// Update is called once per frame
@@ -41,6 +40,7 @@ public class BeerSpawner : MonoBehaviour {
         else
         {
             waitingForNewRoundTimer += Time.deltaTime;
+            Game.UpdateTimeUntilNextBeer((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer));
         }
 	}
 

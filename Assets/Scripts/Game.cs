@@ -20,7 +20,12 @@ public class Game : MonoBehaviour {
     public static void UpdateScore(int delta)
     {
         score += delta;
-        (FindObjectOfType<Text>() as Text).text = "Score: " + score;
+        (GameObject.Find("TextScore").GetComponent<Text>() as Text).text = "Score: " + score;
+    }
+
+    public static void UpdateTimeUntilNextBeer(int timeUntilNextBeer)
+    {
+        (GameObject.Find("TextTimeUntilBeer").GetComponent<Text>() as Text).text = "Time until next beer: " + timeUntilNextBeer;
     }
 
 	// Use this for initialization

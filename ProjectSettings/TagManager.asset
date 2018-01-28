@@ -53,3 +53,9 @@ TagManager:
   - name: HousesLayer
     uniqueID: 560671843
     locked: 0
+  - name: NotificationsLayer
+    uniqueID: 2155601603
+    locked: 0
+  - name: UILayer
+    uniqueID: 1981910527
+    locked: 0
