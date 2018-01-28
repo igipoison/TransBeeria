@@ -33,12 +33,26 @@ public class BeerHandler : MonoBehaviour {
         {
             // check where to go
             this.transform.position = nodeToVisit.coordinates;
-            direction = nodeToVisit.HandleBeerEnterance(this.gameObject);
 
             if (nodeToVisit.GetType() == typeof(SwitchNode))
             {
+                direction = ((SwitchNode)nodeToVisit).GetDirectionVector();
                 lastVisitedSwitchNode = (SwitchNode)nodeToVisit;
                 nodeToVisit = null;
+            }
+            else
+            {
+                BeerTag beerTag = TagResolver.GetTagByName(gameObject.tag);
+                GameObject houseSpriteObj = GameObject.Find("HouseNode#" + nodeToVisit.nodeId);
+                HouseHandler houseHandler = houseSpriteObj.GetComponent<HouseHandler>() as HouseHandler;
+                BeerTag houseBeerTag = houseHandler.getBeerTag();
+
+                if (beerTag == houseBeerTag)
+                {
+                    houseHandler.addLiter();
+                    Game.UpdateScore(1);
+                }
+                Destroy(this.gameObject);
             }
         }
 

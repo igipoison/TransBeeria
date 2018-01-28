@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-enum BeerType
-{
-    STOUT = 0,
-    RED = 1,
-    PILSNER = 2
-}
 public class HouseHandler : MonoBehaviour
 {
 
@@ -21,7 +15,7 @@ public class HouseHandler : MonoBehaviour
 
     public Sprite[] beerSprites;
 
-    private BeerType beerType = BeerType.STOUT;
+    private BeerTag beerType = BeerTag.STOUT;
     private float internalBeerInterval;
     private float currentBeerLitersGoal = 0;
     private int currentLiters = 0;
@@ -54,7 +48,7 @@ public class HouseHandler : MonoBehaviour
     void AskForBeer()
     {
         currentBeerLitersGoal = demandingLiters;
-        beerType = (BeerType)random.Next(3);
+        beerType = (BeerTag)random.Next(3);
         GameObject beerNotificationSpriteGO = new GameObject();
         beerNotificationSpriteGO.AddComponent<SpriteRenderer>();
         beerNotificationSpriteGO.GetComponent<SpriteRenderer>().sprite = beerSprites[(int)beerType];
@@ -73,5 +67,15 @@ public class HouseHandler : MonoBehaviour
             GUI.Label(new Rect(getPixelPos.x, getPixelPos.y, 100, 50), "" + currentLiters + " / " + currentBeerLitersGoal, style );
         }
        
+    }
+
+    public void addLiter()
+    {
+        currentLiters++;
+    }
+
+    public BeerTag getBeerTag()
+    {
+        return beerType;
     }
 }

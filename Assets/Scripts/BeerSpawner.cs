@@ -48,6 +48,7 @@ public class BeerSpawner : MonoBehaviour {
             GameObject beerUnitInstance = Instantiate(beerUnitPrefab) as GameObject;
             beerUnitInstance.transform.position = new Vector2(0.0f, i);
             beerUnitInstance.GetComponent<SpriteRenderer>().sprite = beerColorSprites[beerColorIndex];
+            beerUnitInstance.tag = TagResolver.GetNameByIndex(beerColorIndex);
         }
     }
 }

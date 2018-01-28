@@ -16,7 +16,7 @@ namespace Assets.Scripts
 
         public override Vector2 HandleBeerEnterance(GameObject gameObject)
         {
-           return this.houseObject.DestroyArrivedBeer(gameObject);
+            return this.houseObject.DestroyArrivedBeer(gameObject);
         }
     }
 }

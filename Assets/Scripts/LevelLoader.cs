@@ -13,7 +13,6 @@ public class LevelLoader : MonoBehaviour {
     public GameObject pipeVertical;
     public GameObject switchableObject;
     public GameObject rootObject;
-    public GameObject beerUnit;
     private static BeerTree beerTree;
     
 
@@ -79,8 +78,6 @@ public class LevelLoader : MonoBehaviour {
         GenerateSprites(bT);
         GeneratePipes(bT);
 
-        var switchSprite = Instantiate(beerUnit) as GameObject;
-        switchSprite.transform.position = new Vector2(0.0f, -1.0f);
         beerTree = bT;
     }
 
