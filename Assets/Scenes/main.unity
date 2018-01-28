@@ -215,7 +215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawningInterval: 10
   numberOfBeerUnitsPerRound: 10
-  beerUnitPrefab: {fileID: 0}
+  beerUnitPrefab: {fileID: 1971884104684782, guid: 97c5874d5e1124b4faf480e74976f793,
+    type: 2}
 --- !u!4 &1221028857
 Transform:
   m_ObjectHideFlags: 0
