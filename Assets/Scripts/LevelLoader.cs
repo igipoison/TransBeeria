@@ -158,4 +158,20 @@ public class LevelLoader : MonoBehaviour {
     void Update () {
 		
 	}
+
+    public List<HouseHandler> GetAllHouseHandlers()
+    {
+        List<Node> houseNodes = beerTree.getAllNodes().FindAll((Node node) =>
+        {
+            return node.GetType() == typeof(HouseNode);
+        });
+
+        List<HouseHandler> houseHandlers = new List<HouseHandler>();
+        foreach (Node houseNode in houseNodes)
+        {
+            GameObject houseSpriteObj = GameObject.Find("HouseNode#" + houseNode.nodeId);
+            houseHandlers.Add(houseSpriteObj.GetComponent<HouseHandler>());
+        }
+        return houseHandlers;
+    }
 }

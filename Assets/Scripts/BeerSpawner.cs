@@ -35,7 +35,28 @@ public class BeerSpawner : MonoBehaviour {
         if (waitingForNewRoundTimer >= MAX_SPAWNING_INTERVAL)
         {
             waitingForNewRoundTimer = 0.0f;
-            DispatchAnotherRound();
+
+            // decide what is next beer
+            List<HouseHandler> allHouseHandlers = LevelLoader.getInstance().GetAllHouseHandlers();
+            List<BeerTag> desiredBeerTags = new List<BeerTag>();
+
+            string debugString = "BEERS: ";
+            foreach (HouseHandler houseHandler in allHouseHandlers)
+            {
+                if (houseHandler.getBeerTag() != BeerTag.UKNOWN)
+                {
+                    desiredBeerTags.Add(houseHandler.getBeerTag());
+                    debugString += TagResolver.GetNameByIndex(TagResolver.GetIndexByTag(houseHandler.getBeerTag())) + " ";
+                }
+            }
+            Debug.Log(debugString);
+
+            if (desiredBeerTags.Count > 0)
+            {
+                int randomDesiredIndex = RandomUtils.GetRandomNumber(0, desiredBeerTags.Count);
+                beerColorIndex = TagResolver.GetIndexByTag(desiredBeerTags[randomDesiredIndex]);
+                DispatchAnotherRound();
+            }
         }
         else
         {
@@ -47,7 +68,6 @@ public class BeerSpawner : MonoBehaviour {
     void DispatchAnotherRound()
     {
         // position beer units initialy and give them sprites
-        beerColorIndex = RandomUtils.GetRandomNumber(0,3);
         for (int i = 0; i < numberOfBeerUnitsPerRound; i++)
         {
             GameObject beerUnitInstance = Instantiate(beerUnitPrefab) as GameObject;

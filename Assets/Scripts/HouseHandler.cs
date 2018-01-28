@@ -16,7 +16,7 @@ public class HouseHandler : MonoBehaviour
 
     public Sprite[] beerSprites;
 
-    private BeerTag beerType = BeerTag.STOUT;
+    private BeerTag beerType = BeerTag.UKNOWN;
     private float internalBeerInterval;
     private float currentBeerLitersGoal = 0;
     private int currentLiters = 0;
@@ -26,9 +26,9 @@ public class HouseHandler : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        askForBeerInterval = RandomUtils.GetRandomNumber(10, 30);
-        askForBeerStartValue = RandomUtils.GetRandomNumber(0, (int)askForBeerInterval);
-        demandingLiters = RandomUtils.GetRandomNumber(5, 20);
+        //askForBeerInterval = RandomUtils.GetRandomNumber(10, 30);
+        //askForBeerStartValue = RandomUtils.GetRandomNumber(0, (int)askForBeerInterval);
+        //demandingLiters = RandomUtils.GetRandomNumber(5, 20);
         internalBeerInterval = askForBeerStartValue;
     }
 
@@ -39,10 +39,10 @@ public class HouseHandler : MonoBehaviour
         {
             internalBeerInterval = 0.0f;
 
-            //if (currentLiters >= currentBeerLitersGoal)
-            //{ 
-            //    AskForBeer();
-            //}
+            if (currentLiters >= currentBeerLitersGoal)
+            {
+                AskForBeer();
+            }
         }
         else
         {

@@ -42,5 +42,10 @@ namespace Assets.Scripts
         {
             return start;
         }
+
+        public List<Node> getAllNodes()
+        {
+            return nodes;
+        }
     }
 }

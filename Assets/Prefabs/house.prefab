@@ -53,7 +53,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   askForBeerInterval: 10
-  askForBeerStartValue: 0
+  askForBeerStartValue: 8
+  demandingLiters: 10
   beerSprites:
   - {fileID: 21300000, guid: b8afc76527291754397e68bd087b1425, type: 3}
   - {fileID: 21300000, guid: b3c7f24d3d96a7549b203dda9019e465, type: 3}

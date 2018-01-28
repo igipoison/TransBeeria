@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MAX_SPAWNING_INTERVAL: 10
-  MAX_SPAWNING_START_TIME: 5
+  MAX_SPAWNING_START_TIME: 1
   MAX_BEER_UNITS_PER_ROUND: 10
   beerColorIndex: 0
   beerColorSprites:
