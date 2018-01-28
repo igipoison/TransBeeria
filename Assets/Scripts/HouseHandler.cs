@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +21,14 @@ public class HouseHandler : MonoBehaviour
     private float currentBeerLitersGoal = 0;
     private int currentLiters = 0;
 
-    private System.Random random;
-
     // Use this for initialization
     void Start()
     {
+        
+        askForBeerInterval = RandomUtils.GetRandomNumber(10, 30);
+        askForBeerStartValue = RandomUtils.GetRandomNumber(0, (int)askForBeerInterval);
+        demandingLiters = RandomUtils.GetRandomNumber(5, 20);
         internalBeerInterval = askForBeerStartValue;
-        random = new System.Random(System.DateTime.Now.Millisecond);
     }
 
     // Update is called once per frame
@@ -37,7 +39,9 @@ public class HouseHandler : MonoBehaviour
             internalBeerInterval = 0.0f;
 
             if (currentLiters >= currentBeerLitersGoal)
+            { 
                 AskForBeer();
+            }
         }
         else
         {
@@ -48,7 +52,7 @@ public class HouseHandler : MonoBehaviour
     void AskForBeer()
     {
         currentBeerLitersGoal = demandingLiters;
-        beerType = (BeerTag)random.Next(3);
+        beerType = (BeerTag)RandomUtils.GetRandomNumber(0, 3);
         GameObject beerNotificationSpriteGO = new GameObject();
         beerNotificationSpriteGO.AddComponent<SpriteRenderer>();
         beerNotificationSpriteGO.GetComponent<SpriteRenderer>().sprite = beerSprites[(int)beerType];

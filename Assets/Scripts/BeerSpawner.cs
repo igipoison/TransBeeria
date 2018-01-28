@@ -7,6 +7,9 @@ public class BeerSpawner : MonoBehaviour {
     [Range(1,30)]
     public int spawningInterval = 10; // seconds
 
+    [Range(1, 30)]
+    public int spawningStartTime = 5; // seconds;
+
     [Range(1, 10)]
     public int numberOfBeerUnitsPerRound = 10;
 
@@ -18,11 +21,11 @@ public class BeerSpawner : MonoBehaviour {
     public GameObject beerUnitPrefab;
 
     private float waitingForNewRoundTimer = 0.0f;
-    private System.Random r = new System.Random(System.DateTime.Now.Millisecond);
-
+   
 	// Use this for initialization
-	void Start () {
-		
+	void Start ()
+    {
+        waitingForNewRoundTimer = spawningStartTime;
 	}
 	
 	// Update is called once per frame
@@ -42,7 +45,7 @@ public class BeerSpawner : MonoBehaviour {
     void DispatchAnotherRound()
     {
         // position beer units initialy and give them sprites
-        beerColorIndex = r.Next(3);
+        beerColorIndex = RandomUtils.GetRandomNumber(0,3);
         for (int i = 0; i < numberOfBeerUnitsPerRound; i++)
         {
             GameObject beerUnitInstance = Instantiate(beerUnitPrefab) as GameObject;
