@@ -21,10 +21,11 @@ public class HouseHandler : MonoBehaviour
     private float currentBeerLitersGoal = 0;
     private int currentLiters = 0;
 
+    private GameObject beerNotificationSpriteGO = null;
+
     // Use this for initialization
     void Start()
     {
-        
         askForBeerInterval = RandomUtils.GetRandomNumber(10, 30);
         askForBeerStartValue = RandomUtils.GetRandomNumber(0, (int)askForBeerInterval);
         demandingLiters = RandomUtils.GetRandomNumber(5, 20);
@@ -38,10 +39,10 @@ public class HouseHandler : MonoBehaviour
         {
             internalBeerInterval = 0.0f;
 
-            if (currentLiters >= currentBeerLitersGoal)
-            { 
-                AskForBeer();
-            }
+            //if (currentLiters >= currentBeerLitersGoal)
+            //{ 
+            //    AskForBeer();
+            //}
         }
         else
         {
@@ -49,11 +50,26 @@ public class HouseHandler : MonoBehaviour
         }
     }
 
+    public void CheckAndReset()
+    {
+        if (currentLiters >= currentBeerLitersGoal)
+        {
+            AskForBeer();
+        }
+
+    }
+
     void AskForBeer()
     {
         currentBeerLitersGoal = demandingLiters;
+        currentLiters = 0;
         beerType = (BeerTag)RandomUtils.GetRandomNumber(0, 3);
-        GameObject beerNotificationSpriteGO = new GameObject();
+
+        if (beerNotificationSpriteGO)
+        {
+            Destroy(beerNotificationSpriteGO);
+        }
+        beerNotificationSpriteGO = new GameObject();
         beerNotificationSpriteGO.AddComponent<SpriteRenderer>();
         beerNotificationSpriteGO.GetComponent<SpriteRenderer>().sprite = beerSprites[(int)beerType];
         beerNotificationSpriteGO.GetComponent<SpriteRenderer>().sortingLayerName = "NotificationsLayer";

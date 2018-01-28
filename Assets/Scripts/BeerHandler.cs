@@ -50,6 +50,7 @@ public class BeerHandler : MonoBehaviour {
                 if (beerTag == houseBeerTag)
                 {
                     houseHandler.addLiter();
+                    houseHandler.CheckAndReset();
                     Game.UpdateScore(1);
                 }
                 Destroy(this.gameObject);

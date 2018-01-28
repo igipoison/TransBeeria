@@ -5,33 +5,35 @@ using UnityEngine;
 public class BeerSpawner : MonoBehaviour {
 
     [Range(1,30)]
-    public int spawningInterval = 10; // seconds
+    public int MAX_SPAWNING_INTERVAL = 10; // seconds
 
     [Range(1, 30)]
-    public int spawningStartTime = 5; // seconds;
+    public int MAX_SPAWNING_START_TIME = 5; // seconds;
 
     [Range(1, 10)]
-    public int numberOfBeerUnitsPerRound = 10;
+    public int MAX_BEER_UNITS_PER_ROUND = 10;
 
     [Range(0, 2)]
     public int beerColorIndex = 0;
 
     public Sprite[] beerColorSprites;
-
     public GameObject beerUnitPrefab;
 
     private float waitingForNewRoundTimer = 0.0f;
-   
-	// Use this for initialization
-	void Start ()
+    private int numberOfBeerUnitsPerRound;
+
+    // Use this for initialization
+    void Start ()
     {
-        waitingForNewRoundTimer = spawningStartTime;
-	}
+        waitingForNewRoundTimer = MAX_SPAWNING_START_TIME; //RandomUtils.GetRandomNumber(0, MAX_SPAWNING_START_TIME);
+        numberOfBeerUnitsPerRound = MAX_BEER_UNITS_PER_ROUND; // RandomUtils.GetRandomNumber(1, MAX_BEER_UNITS_PER_ROUND);
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
-        if (waitingForNewRoundTimer >= spawningInterval)
+        if (waitingForNewRoundTimer >= MAX_SPAWNING_INTERVAL)
         {
             waitingForNewRoundTimer = 0.0f;
             DispatchAnotherRound();
