@@ -11,5 +11,11 @@ namespace Assets.Scripts
     {
         //public Sprite house;
 
+        public Vector2 DestroyArrivedBeer(GameObject beer)
+        {
+            Destroy(beer);
+            return new Vector2(0.0f, 0.0f);
+        }
+
     }
 }

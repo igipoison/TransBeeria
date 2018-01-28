@@ -12,4 +12,7 @@ public abstract class Node {
         this.coordinates = coordinates;
         this.nodeId = nodeId;
     }
+
+    public abstract Vector2 HandleBeerEnterance(GameObject gameObject);
+
 }

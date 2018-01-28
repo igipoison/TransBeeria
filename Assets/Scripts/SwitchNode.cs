@@ -18,5 +18,22 @@ namespace Assets.Scripts
             this.switchObject = s;
             this.isRoot = isRoot;
         }
+
+        public Node GetNextNode()
+        {
+
+
+           return switchObject.state.GetNextNode(childs, coordinates);
+        }
+
+        public Vector2 GetDirectionVector()
+        {
+            return switchObject.state.direction;
+        }
+
+        public override Vector2 HandleBeerEnterance(GameObject gameObject)
+        {
+           return this.GetDirectionVector();
+        }
     }
 }

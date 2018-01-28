@@ -9,7 +9,8 @@ public class Switch : MonoBehaviour {
     //public Sprite leftSwitch;
     //public Sprite rightSwitch;
     //public Sprite verticalSwitch;
-    public int state;
+    //public int state;
+    public IState state;
     // Use this for initialization
     void Start () {
 		

@@ -55,15 +55,19 @@ public class LevelLoader : MonoBehaviour {
 
         Vector2 coordinatesHouseOne = new Vector2(-5.0f, -5.0f);
         string nodeIdHouseOne = "HOUSE_ONE";
-        HouseNode houseNodeOne = new HouseNode(coordinatesHouseOne, nodeIdHouseOne);
+        House houseOne = new House();
+        HouseNode houseNodeOne = new HouseNode(houseOne, coordinatesHouseOne, nodeIdHouseOne);
 
         Vector2 coordinatesHouseTwo = new Vector2(5.0f, -5.0f);
         string nodeIdHouseTwo = "HOUSE_TWO";
-        HouseNode houseNodeTwo = new HouseNode(coordinatesHouseTwo, nodeIdHouseTwo);
+        House houseTwo = new House();
+        HouseNode houseNodeTwo = new HouseNode(houseTwo, coordinatesHouseTwo, nodeIdHouseTwo);
 
         Vector2 coordinatesHouseThree = new Vector2(5.0f, -10.0f);
         string nodeIdHouseThree = "HOUSE_THREE";
-        HouseNode houseNodeThree = new HouseNode(coordinatesHouseThree, nodeIdHouseThree);
+        House h = new House();
+        House houseThree = new House();
+        HouseNode houseNodeThree = new HouseNode(houseThree, coordinatesHouseThree, nodeIdHouseThree);
 
         BeerTree bT = new BeerTree(switchNodeRoot);
         bT.AddSwitch(switchNodeOne, nodeIdSwitchRoot);
@@ -108,7 +112,7 @@ public class LevelLoader : MonoBehaviour {
             
             switchSprite.name =  node.nodeId;
             if(!isRoot)
-            ((SwitchNode)node).switchObject.state = handler.currentIndex;
+            ((SwitchNode)node).switchObject.state = StateFactory.Create(handler.currentIndex);
             if (handler != null)
             {
                 Subscribe(handler);
