@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4007443553353282}
   - component: {fileID: 212777970989730364}
+  - component: {fileID: 114337571015936676}
   m_Layer: 0
   m_Name: house
   m_TagString: Untagged
@@ -40,6 +41,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114337571015936676
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1248505732925902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e04cefee877b2144398fa9781699024d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  askForBeerInterval: 10
+  askForBeerStartValue: 0
+  beerSprites:
+  - {fileID: 21300000, guid: b8afc76527291754397e68bd087b1425, type: 3}
+  - {fileID: 21300000, guid: b3c7f24d3d96a7549b203dda9019e465, type: 3}
+  - {fileID: 21300000, guid: d61856afdccd96448b621f832f3e4c68, type: 3}
 --- !u!212 &212777970989730364
 SpriteRenderer:
   m_ObjectHideFlags: 1
