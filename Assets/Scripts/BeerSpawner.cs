@@ -75,5 +75,6 @@ public class BeerSpawner : MonoBehaviour {
             beerUnitInstance.GetComponent<SpriteRenderer>().sprite = beerColorSprites[beerColorIndex];
             beerUnitInstance.tag = TagResolver.GetNameByIndex(beerColorIndex);
         }
+        Game.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
     }
 }
