@@ -75,7 +75,7 @@ public class LevelLoader : MonoBehaviour {
         //bT.AddHouse(houseNodeTwo, nodeIdSwitchOne);
         //bT.AddHouse(houseNodeThree, nodeIdSwitchTwo);
 
-        BeerTree bT = MapGenerator(3);
+        BeerTree bT = MapGenerator(StartGame.getLevel());
 
 
         GenerateSprites(bT);

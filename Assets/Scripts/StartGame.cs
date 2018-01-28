@@ -5,10 +5,21 @@ using UnityEngine.SceneManagement;
 
 public class StartGame : MonoBehaviour {
 
+    private static int currentLevel = 1; 
+
     public void StartLevel(int level)
     {
         ////Application.LoadLevel(level);
+        if (level > 0)
+        {
+            SceneManager.UnloadScene("main");
+        }
         SceneManager.LoadScene("main");
+    }
+
+    public static int getLevel()
+    {
+        return currentLevel;
     }
 
     public void StartDevPage()
@@ -16,6 +27,15 @@ public class StartGame : MonoBehaviour {
         ////Application.LoadLevel(level);
         SceneManager.LoadScene("devs");
     }
+
+    public void StartNewLevel()
+    {
+        Debug.Log("new level called");
+        currentLevel++; 
+        ////Application.LoadLevel(level);
+        SceneManager.LoadScene("main");
+    }
+
 
     public void BackToMenu()
     {

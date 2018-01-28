@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Game : MonoBehaviour {
 
+    private static StartGame levelChanger;
     private static int score = 0;
     private static int beersDispatched = 0;
 
@@ -21,6 +22,7 @@ public class Game : MonoBehaviour {
 
     public static void UpdateScore(int delta)
     {
+        Debug.Log("update score");
         score += delta;
         UpdateScoreText();
     }
@@ -37,12 +39,14 @@ public class Game : MonoBehaviour {
 
     private static void GameFinished()
     {
+        levelChanger.StartNewLevel();
         Debug.Log("GAME FINISHED. Score: " + score);
     }
 
 	// Use this for initialization
 	void Start () {
         RandomUtils.Initialize();
+        levelChanger = GetComponent<StartGame>();
 	}
 
 	
