@@ -36,25 +36,37 @@ public class BeerSpawner : MonoBehaviour {
         {
             waitingForNewRoundTimer = 0.0f;
 
-            // decide what is next beer
+            // decide what is the next beer
             List<HouseHandler> allHouseHandlers = LevelLoader.getInstance().GetAllHouseHandlers();
-            List<BeerTag> desiredBeerTags = new List<BeerTag>();
+            
+            Dictionary<BeerTag, int> beerDemands = new Dictionary<BeerTag, int>();
+            beerDemands[BeerTag.STOUT] = 0;
+            beerDemands[BeerTag.RED] = 0;
+            beerDemands[BeerTag.PILSNER] = 0;
 
-            string debugString = "BEERS: ";
             foreach (HouseHandler houseHandler in allHouseHandlers)
             {
                 if (houseHandler.getBeerTag() != BeerTag.UKNOWN)
                 {
-                    desiredBeerTags.Add(houseHandler.getBeerTag());
-                    debugString += TagResolver.GetNameByIndex(TagResolver.GetIndexByTag(houseHandler.getBeerTag())) + " ";
+                    beerDemands[houseHandler.getBeerTag()]++;
                 }
             }
-            Debug.Log(debugString);
 
-            if (desiredBeerTags.Count > 0)
+            BeerTag bestBeerToDispatch = BeerTag.UKNOWN;
+            int bestHouses = 0;
+
+            foreach(var pair in beerDemands)
             {
-                int randomDesiredIndex = RandomUtils.GetRandomNumber(0, desiredBeerTags.Count);
-                beerColorIndex = TagResolver.GetIndexByTag(desiredBeerTags[randomDesiredIndex]);
+                if (beerDemands[pair.Key] > bestHouses)
+                {
+                    bestHouses = pair.Value;
+                    bestBeerToDispatch = pair.Key;
+                }
+            }
+
+            if (bestBeerToDispatch != BeerTag.UKNOWN)
+            { 
+                beerColorIndex = (int)bestBeerToDispatch;
                 DispatchAnotherRound();
             }
         }

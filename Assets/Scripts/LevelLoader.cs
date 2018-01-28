@@ -68,12 +68,15 @@ public class LevelLoader : MonoBehaviour {
         House houseThree = new House();
         HouseNode houseNodeThree = new HouseNode(houseThree, coordinatesHouseThree, nodeIdHouseThree);
 
-        BeerTree bT = new BeerTree(switchNodeRoot);
-        bT.AddSwitch(switchNodeOne, nodeIdSwitchRoot);
-        bT.AddSwitch(switchNodeTwo, nodeIdSwitchOne);
-        bT.AddHouse(houseNodeOne, nodeIdSwitchOne);
-        bT.AddHouse(houseNodeTwo, nodeIdSwitchOne);
-        bT.AddHouse(houseNodeThree, nodeIdSwitchTwo);
+        //BeerTree bT = new BeerTree(switchNodeRoot);
+        //bT.AddSwitch(switchNodeOne, nodeIdSwitchRoot);
+        //bT.AddSwitch(switchNodeTwo, nodeIdSwitchOne);
+        //bT.AddHouse(houseNodeOne, nodeIdSwitchOne);
+        //bT.AddHouse(houseNodeTwo, nodeIdSwitchOne);
+        //bT.AddHouse(houseNodeThree, nodeIdSwitchTwo);
+
+        BeerTree bT = MapGenerator(3);
+
 
         GenerateSprites(bT);
         GeneratePipes(bT);
@@ -173,5 +176,67 @@ public class LevelLoader : MonoBehaviour {
             houseHandlers.Add(houseSpriteObj.GetComponent<HouseHandler>());
         }
         return houseHandlers;
+    }
+
+    BeerTree MapGenerator(int numberOfSwitches)
+    {
+        SwitchNode parentSwitch = new SwitchNode(new Vector2(0.0f, 0.0f), "SWITCH_ROOT", new Switch(), true);
+        BeerTree bT = new BeerTree(parentSwitch);
+
+        int numOfSwitches = numberOfSwitches;
+
+        float y = 0.0f;
+        int idSwitchCounter = 1;
+        int numOfHouses = 0;
+        int idHouseCounter = 1;
+
+        for (int i = 0; i < numOfSwitches; i++)
+        {
+
+            SwitchNode newSwitch = new SwitchNode(new Vector2(0.0f, y - 5.0f), "SWITCH_" + idSwitchCounter++, new Switch(), false);
+            y = y - 5;
+            numOfHouses = RandomUtils.GetRandomNumber(1, 4);
+
+            if (i == 0)
+            {
+                bT.AddSwitch(newSwitch, "SWITCH_ROOT");
+            }
+            else
+            {
+                bT.AddSwitch(newSwitch, parentSwitch.nodeId);
+            }
+            parentSwitch = newSwitch;
+
+            switch (numOfHouses)
+            {
+                case 1:
+                    {
+                        HouseNode leftHouse = new HouseNode(new House(), new Vector2(-5.0f, newSwitch.coordinates.y), "HOUSE_" + idHouseCounter++);
+                        bT.AddHouse(leftHouse, newSwitch.nodeId);
+                        break;
+                    }
+                case 2:
+                    {
+                        HouseNode rightHouse = new HouseNode(new House(), new Vector2(5.0f, newSwitch.coordinates.y), "HOUSE_" + idHouseCounter++);
+                        bT.AddHouse(rightHouse, newSwitch.nodeId);
+                        break;
+                    }
+
+                default:
+                    {
+                        HouseNode leftHouse = new HouseNode(new House(), new Vector2(-5.0f, newSwitch.coordinates.y), "HOUSE_" + idHouseCounter++);
+                        bT.AddHouse(leftHouse, newSwitch.nodeId);
+                        HouseNode rightHouse = new HouseNode(new House(), new Vector2(5.0f, newSwitch.coordinates.y), "HOUSE_" + idHouseCounter++);
+                        bT.AddHouse(rightHouse, newSwitch.nodeId);
+                        break;
+                    }
+
+            }
+
+
+        }
+
+        return bT;
+
     }
 }
