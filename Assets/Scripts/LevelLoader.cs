@@ -7,6 +7,7 @@ using UnityEngine;
 public class LevelLoader : MonoBehaviour {
 
     private static LevelLoader instance = null;
+	private static Camera m_MainCamera;
 
     public GameObject housePrefab;
     public GameObject pipeHorizontal;
@@ -14,7 +15,8 @@ public class LevelLoader : MonoBehaviour {
     public GameObject switchableObject;
     public GameObject rootObject;
     private static BeerTree beerTree;
-    
+	//private int[] levelCameraSize;
+	private float lastSwitchYcoordinate;
 
     public static LevelLoader getInstance()
     {
@@ -37,44 +39,6 @@ public class LevelLoader : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
-        Vector2 coordinatesRoot = new Vector2(0.0f,0.0f);
-        string nodeIdSwitchRoot = "SWITCH_ROOT";
-        Switch switchRoot = new Switch();
-        SwitchNode switchNodeRoot = new SwitchNode(coordinatesRoot, nodeIdSwitchRoot, switchRoot,true);
-        
-        Vector2 coordinatesOne = new Vector2(0.0f, -5.0f);
-        string nodeIdSwitchOne = "SWITCH_ONE";
-        Switch switchOne = new Switch();
-        SwitchNode switchNodeOne = new SwitchNode(coordinatesOne, nodeIdSwitchOne, switchOne);
-
-        Vector2 coordinatesTwo = new Vector2(0.0f, -10.0f);
-        string nodeIdSwitchTwo = "SWITCH_TWO";
-        Switch switchTwo = new Switch();
-        SwitchNode switchNodeTwo = new SwitchNode(coordinatesTwo, nodeIdSwitchTwo, switchTwo);
-
-        Vector2 coordinatesHouseOne = new Vector2(-5.0f, -5.0f);
-        string nodeIdHouseOne = "HOUSE_ONE";
-        House houseOne = new House();
-        HouseNode houseNodeOne = new HouseNode(houseOne, coordinatesHouseOne, nodeIdHouseOne);
-
-        Vector2 coordinatesHouseTwo = new Vector2(5.0f, -5.0f);
-        string nodeIdHouseTwo = "HOUSE_TWO";
-        House houseTwo = new House();
-        HouseNode houseNodeTwo = new HouseNode(houseTwo, coordinatesHouseTwo, nodeIdHouseTwo);
-
-        Vector2 coordinatesHouseThree = new Vector2(5.0f, -10.0f);
-        string nodeIdHouseThree = "HOUSE_THREE";
-        House h = new House();
-        House houseThree = new House();
-        HouseNode houseNodeThree = new HouseNode(houseThree, coordinatesHouseThree, nodeIdHouseThree);
-
-        //BeerTree bT = new BeerTree(switchNodeRoot);
-        //bT.AddSwitch(switchNodeOne, nodeIdSwitchRoot);
-        //bT.AddSwitch(switchNodeTwo, nodeIdSwitchOne);
-        //bT.AddHouse(houseNodeOne, nodeIdSwitchOne);
-        //bT.AddHouse(houseNodeTwo, nodeIdSwitchOne);
-        //bT.AddHouse(houseNodeThree, nodeIdSwitchTwo);
-
         BeerTree bT = MapGenerator(StartGame.getLevel());
 
 
@@ -82,7 +46,24 @@ public class LevelLoader : MonoBehaviour {
         GeneratePipes(bT);
 
         beerTree = bT;
+		//levelCameraSize = new int[4]{ 2, 3, 4, 5 };
+
+		SetMainCamera(1f,2f);
+
     }
+
+
+	private void SetMainCamera(float yAxisCorrection,float sizeCorrection)
+	{
+		m_MainCamera = Camera.main;
+
+		//alternativly we can use fixed camera size per level
+		//m_MainCamera.orthographicSize = levelCameraSize[StartGame.getLevel()];
+		m_MainCamera.orthographicSize = (Math.Abs(lastSwitchYcoordinate)/2) + sizeCorrection;
+		float newY = -m_MainCamera.orthographicSize + yAxisCorrection;
+		Vector3 newPosition = new Vector3 (0.0f, newY,-10.0f);
+		m_MainCamera.transform.position = newPosition;
+	}
 
     public BeerTree GetBeerTree()
     {
@@ -192,9 +173,11 @@ public class LevelLoader : MonoBehaviour {
 
         for (int i = 0; i < numOfSwitches; i++)
         {
-
-            SwitchNode newSwitch = new SwitchNode(new Vector2(0.0f, y - 3.0f), "SWITCH_" + idSwitchCounter++, new Switch(), false);
-            y = y - 3;
+			y = y - 3;
+            SwitchNode newSwitch = new SwitchNode(new Vector2(0.0f, y), "SWITCH_" + idSwitchCounter++, new Switch(), false);
+			if (i == numOfSwitches - 1)
+				lastSwitchYcoordinate = y;
+            
             numOfHouses = RandomUtils.GetRandomNumber(1, 4);
 
             if (i == 0)
