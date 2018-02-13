@@ -87,18 +87,18 @@ public class LevelLoader : MonoBehaviour {
         else
         {
             var isRoot = ((SwitchNode)node).isRoot;
-            var switchSprite = Instantiate(isRoot? rootObject : switchableObject) as GameObject;
+            var switchPrefab = Instantiate(isRoot? rootObject : switchableObject) as GameObject;
 
-            var handler = switchSprite.GetComponent<SwitchHandler>();
-            
-            switchSprite.name =  node.nodeId;
+            var handler = switchPrefab.GetComponent<SwitchHandler>();
+
+            switchPrefab.name =  node.nodeId;
             if(!isRoot)
             ((SwitchNode)node).switchObject.state = StateFactory.Create(handler.currentIndex);
             if (handler != null)
             {
                 Subscribe(handler);
             }
-            switchSprite.transform.position = node.coordinates;
+            switchPrefab.transform.position = node.coordinates;
             (node as SwitchNode).childs.ForEach((Node switchNodeChild) =>
             {
                 GenerateSprite(switchNodeChild);
