@@ -18,17 +18,20 @@ public class GameManager : MonoBehaviour {
         gameRunning = false;
     }
 
-    public static void UpdateBeersDispatched(int delta)
+    public static void CheckIfLevelShouldEnd()
     {
-        beersDispatched += delta;
-        UpdateScoreText();
-
-        if (beersDispatched > StartGame.getLevel() * 2 * 10)
+        if (beersDispatched >= GetTotalNumberOfDispatchBeerForThisLevel())
         {
             uiController.UpdateOverallScore(score, beersDispatched);
             uiController.ShowLevelEndingPanel(true);
             gameRunning = false;
         }
+    }
+
+    public static void UpdateBeersDispatched(int delta)
+    {
+        beersDispatched += delta;
+        UpdateScoreText();
     }
 
     public static void UpdateScore(int delta)
@@ -43,20 +46,24 @@ public class GameManager : MonoBehaviour {
         uiController.UpdateTimeUntilNextBeer(timeUntilNextBeer);
     }
 
-    private static void UpdateScoreText()
-    {
-        uiController.UpdateScore(score, beersDispatched);
-    }
-
-    public static void GameFinished()
+    public static void FinishGame()
     {
         levelChanger.StartNewLevel();
-        Debug.Log("GAME FINISHED. Score: " + score);
     }
 
     public static bool IsGameRunning()
     {
         return gameRunning;
+    }
+
+    private static void UpdateScoreText()
+    {
+        uiController.UpdateScore(score, GetTotalNumberOfDispatchBeerForThisLevel());
+    }
+
+    private static int GetTotalNumberOfDispatchBeerForThisLevel()
+    {
+        return StartGame.getLevel() * 2 * 10;
     }
 
 	// Use this for initialization

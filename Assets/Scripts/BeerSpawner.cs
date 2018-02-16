@@ -21,6 +21,7 @@ public class BeerSpawner : MonoBehaviour {
 
     private float waitingForNewRoundTimer = 0.0f;
     private int numberOfBeerUnitsPerRound;
+    private int numberOfBeerUnitsLeftInTheRound;
 
     // Use this for initialization
     void Start ()
@@ -82,6 +83,8 @@ public class BeerSpawner : MonoBehaviour {
 
     void DispatchAnotherRound()
     {
+        numberOfBeerUnitsLeftInTheRound = numberOfBeerUnitsPerRound;
+
         // position beer units initialy and give them sprites
         for (int i = 0; i < numberOfBeerUnitsPerRound; i++)
         {
@@ -89,7 +92,23 @@ public class BeerSpawner : MonoBehaviour {
             beerUnitInstance.transform.position = new Vector2(0.0f, i);
             beerUnitInstance.GetComponent<SpriteRenderer>().sprite = beerColorSprites[beerColorIndex];
             beerUnitInstance.tag = TagResolver.GetNameByIndex(beerColorIndex);
+            BeerHandler beerHandler = beerUnitInstance.GetComponent<BeerHandler>();
+            
+            /* set callback for BeerSpawner which will notify 
+             * the BeerSpawner (its parent), that the beer is destroyed */
+            beerHandler.SetBeforeDestroyCallback(() =>
+            {
+                numberOfBeerUnitsLeftInTheRound--;
+                if (numberOfBeerUnitsLeftInTheRound == 0)
+                {
+                    Debug.Log("All beer from this round destroyed");
+
+                    // this is the moment where all beer units in this round are destroyed
+                    GameManager.CheckIfLevelShouldEnd();
+                }
+            });
         }
         GameManager.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
+
     }
 }
