@@ -31,6 +31,9 @@ public class BeerSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (!Game.IsGameRunning())
+            return;
 		
         if (waitingForNewRoundTimer >= MAX_SPAWNING_INTERVAL)
         {

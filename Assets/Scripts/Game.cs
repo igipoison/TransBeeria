@@ -8,6 +8,8 @@ public class Game : MonoBehaviour {
     private static StartGame levelChanger;
     private static int score = 0;
     private static int beersDispatched = 0;
+    private static bool gameRunning = false;
+    private static GameObject panelLevelEnding;
 
     public static void Reset()
     {
@@ -22,7 +24,8 @@ public class Game : MonoBehaviour {
 
         if (beersDispatched > StartGame.getLevel() * 2 * 10)
         {
-            GameFinished();
+            panelLevelEnding.gameObject.SetActive(true);
+            gameRunning = false;
         }
     }
 
@@ -43,11 +46,16 @@ public class Game : MonoBehaviour {
         (GameObject.Find("TextScore").GetComponent<Text>() as Text).text = "Score: " + score + " / " + beersDispatched;
     }
 
-    private static void GameFinished()
+    public static void GameFinished()
     {
         Reset();
         levelChanger.StartNewLevel();
         Debug.Log("GAME FINISHED. Score: " + score);
+    }
+
+    public static bool IsGameRunning()
+    {
+        return gameRunning;
     }
 
 	// Use this for initialization
@@ -57,8 +65,12 @@ public class Game : MonoBehaviour {
         string levelName;
         if (StartGame.getLevel() < 4) levelName = StartGame.getLevel() + "";
         else levelName = "God";
-        (GameObject.Find("TextLevel").GetComponent<Text>() as Text).text = "Level: " + levelName;
 
+        (GameObject.Find("TextLevel").GetComponent<Text>() as Text).text = "Level: " + levelName;
+        panelLevelEnding = GameObject.Find("PanelLevelEnding");
+        panelLevelEnding.gameObject.SetActive(false);
+
+        gameRunning = true;
     }
 
 	

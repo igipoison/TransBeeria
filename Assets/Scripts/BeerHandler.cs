@@ -24,6 +24,9 @@ public class BeerHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (!Game.IsGameRunning())
+            return;
+
         if (nodeToVisit == null)
         {
             nodeToVisit = lastVisitedSwitchNode.GetNextNode();           
