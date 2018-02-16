@@ -24,7 +24,7 @@ public class BeerHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!Game.IsGameRunning())
+        if (!GameManager.IsGameRunning())
             return;
 
         if (nodeToVisit == null)
@@ -54,7 +54,7 @@ public class BeerHandler : MonoBehaviour {
                 {
                     houseHandler.addLiter();
                     houseHandler.CheckAndReset();
-                    Game.UpdateScore(1);
+                    GameManager.UpdateScore(1);
                 }
                 Destroy(this.gameObject);
             }

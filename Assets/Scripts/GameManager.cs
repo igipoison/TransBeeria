@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Game : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 
     private static StartGame levelChanger;
-    private static int score = 0;
-    private static int beersDispatched = 0;
-    private static bool gameRunning = false;
-    private static GameObject panelLevelEnding;
+    private static int score;
+    private static int beersDispatched;
+    private static bool gameRunning;
+    private static UIController uiController;
 
-    public static void Reset()
+    public static void InitializeState()
     {
         score = 0;
         beersDispatched = 0;
+        gameRunning = false;
     }
 
     public static void UpdateBeersDispatched(int delta)
@@ -24,7 +25,8 @@ public class Game : MonoBehaviour {
 
         if (beersDispatched > StartGame.getLevel() * 2 * 10)
         {
-            panelLevelEnding.gameObject.SetActive(true);
+            uiController.UpdateOverallScore(score, beersDispatched);
+            uiController.ShowLevelEndingPanel(true);
             gameRunning = false;
         }
     }
@@ -38,17 +40,16 @@ public class Game : MonoBehaviour {
 
     public static void UpdateTimeUntilNextBeer(int timeUntilNextBeer)
     {
-        (GameObject.Find("TextTimeUntilBeer").GetComponent<Text>() as Text).text = "Time until next beer: " + timeUntilNextBeer;
+        uiController.UpdateTimeUntilNextBeer(timeUntilNextBeer);
     }
 
     private static void UpdateScoreText()
     {
-        (GameObject.Find("TextScore").GetComponent<Text>() as Text).text = "Score: " + score + " / " + beersDispatched;
+        uiController.UpdateScore(score, beersDispatched);
     }
 
     public static void GameFinished()
     {
-        Reset();
         levelChanger.StartNewLevel();
         Debug.Log("GAME FINISHED. Score: " + score);
     }
@@ -60,15 +61,15 @@ public class Game : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        InitializeState();
+
+        uiController = FindObjectOfType<UIController>();
+        uiController.Initialize();
+        uiController.UpdateLevel(StartGame.getLevel());
+
         RandomUtils.Initialize();
         levelChanger = GetComponent<StartGame>();
-        string levelName;
-        if (StartGame.getLevel() < 4) levelName = StartGame.getLevel() + "";
-        else levelName = "God";
-
-        (GameObject.Find("TextLevel").GetComponent<Text>() as Text).text = "Level: " + levelName;
-        panelLevelEnding = GameObject.Find("PanelLevelEnding");
-        panelLevelEnding.gameObject.SetActive(false);
 
         gameRunning = true;
     }

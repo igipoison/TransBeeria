@@ -10,7 +10,7 @@ public class ButtonLevelEndClick : MonoBehaviour {
         Button buttonEndLevel = this.GetComponent<Button>();
         buttonEndLevel.onClick.AddListener(() =>
         {
-            Game.GameFinished();
+            GameManager.GameFinished();
         });
     }
 

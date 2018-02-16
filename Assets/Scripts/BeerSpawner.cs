@@ -32,7 +32,7 @@ public class BeerSpawner : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if (!Game.IsGameRunning())
+        if (!GameManager.IsGameRunning())
             return;
 		
         if (waitingForNewRoundTimer >= MAX_SPAWNING_INTERVAL)
@@ -76,7 +76,7 @@ public class BeerSpawner : MonoBehaviour {
         else
         {
             waitingForNewRoundTimer += Time.deltaTime;
-            Game.UpdateTimeUntilNextBeer((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer));
+            GameManager.UpdateTimeUntilNextBeer((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer));
         }
 	}
 
@@ -90,6 +90,6 @@ public class BeerSpawner : MonoBehaviour {
             beerUnitInstance.GetComponent<SpriteRenderer>().sprite = beerColorSprites[beerColorIndex];
             beerUnitInstance.tag = TagResolver.GetNameByIndex(beerColorIndex);
         }
-        Game.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
+        GameManager.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
     }
 }
