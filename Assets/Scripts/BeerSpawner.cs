@@ -77,7 +77,7 @@ public class BeerSpawner : MonoBehaviour {
         else
         {
             waitingForNewRoundTimer += Time.deltaTime;
-            GameManager.UpdateTimeUntilNextBeer((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer));
+            GameManager.UpdateNextRoundInfo((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer), numberOfBeerUnitsPerRound);
         }
 	}
 
@@ -94,21 +94,21 @@ public class BeerSpawner : MonoBehaviour {
             beerUnitInstance.tag = TagResolver.GetNameByIndex(beerColorIndex);
             BeerHandler beerHandler = beerUnitInstance.GetComponent<BeerHandler>();
             
-            /* set callback for BeerSpawner which will notify 
-             * the BeerSpawner (its parent), that the beer is destroyed */
+            /* set callback for BeerHandler which will notify 
+             * the BeerSpawner that the beer is destroyed */
             beerHandler.SetBeforeDestroyCallback(() =>
             {
                 numberOfBeerUnitsLeftInTheRound--;
                 if (numberOfBeerUnitsLeftInTheRound == 0)
                 {
-                    Debug.Log("All beer from this round destroyed");
-
                     // this is the moment where all beer units in this round are destroyed
+                    Debug.Log("All beer from this round destroyed");
                     GameManager.CheckIfLevelShouldEnd();
                 }
             });
         }
         GameManager.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
+        GameManager.DecreaseRoundsLeft();
 
     }
 }

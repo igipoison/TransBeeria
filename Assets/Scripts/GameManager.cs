@@ -8,14 +8,16 @@ public class GameManager : MonoBehaviour {
     private static StartGame levelChanger;
     private static int score;
     private static int beersDispatched;
+    private static int roundsLeft;
     private static bool gameRunning;
     private static UIController uiController;
-
+    
     public static void InitializeState()
     {
         score = 0;
         beersDispatched = 0;
         gameRunning = false;
+        roundsLeft = GetTotalNumberOfRounds();
     }
 
     public static void CheckIfLevelShouldEnd()
@@ -41,9 +43,15 @@ public class GameManager : MonoBehaviour {
         UpdateScoreText();
     }
 
-    public static void UpdateTimeUntilNextBeer(int timeUntilNextBeer)
+    public static void UpdateNextRoundInfo(int timeUntilNextBeer, int beerUnitsInNextRound)
     {
-        uiController.UpdateTimeUntilNextBeer(timeUntilNextBeer);
+        uiController.UpdateNextRoundInfo(timeUntilNextBeer, beerUnitsInNextRound);
+    }
+
+    public static void DecreaseRoundsLeft()
+    {
+        roundsLeft--;
+        uiController.UpdateRoundsLeft(roundsLeft);
     }
 
     public static void FinishGame()
@@ -61,9 +69,14 @@ public class GameManager : MonoBehaviour {
         uiController.UpdateScore(score, GetTotalNumberOfDispatchBeerForThisLevel());
     }
 
+    private static int GetTotalNumberOfRounds()
+    {
+        return StartGame.getLevel() * 2;
+    }
+
     private static int GetTotalNumberOfDispatchBeerForThisLevel()
     {
-        return StartGame.getLevel() * 2 * 10;
+        return GetTotalNumberOfRounds() * 10;
     }
 
 	// Use this for initialization
@@ -72,7 +85,7 @@ public class GameManager : MonoBehaviour {
         InitializeState();
 
         uiController = FindObjectOfType<UIController>();
-        uiController.Initialize();
+        uiController.Initialize(0, GetTotalNumberOfDispatchBeerForThisLevel(), 10, roundsLeft);
         uiController.UpdateLevel(StartGame.getLevel());
 
         RandomUtils.Initialize();

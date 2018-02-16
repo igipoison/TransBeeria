@@ -9,12 +9,13 @@ public class UIController : MonoBehaviour {
     public Text TextTimeUntilNextBeer;
     public Text TextLevel;
     public Text TextOverallScore;
+    public Text TextRoundsLeft;
     public GameObject PanelLevelEnding;
 
 	// Use this for initialization
 	void Start ()
     {
-        Initialize();
+      
 	}
 	
 	// Update is called once per frame
@@ -23,11 +24,12 @@ public class UIController : MonoBehaviour {
         
 	}
 
-    public void Initialize()
+    public void Initialize(int timeUntilNextRound, int totalBeerToDispatch, int beerUnitsInOneRound, int roundsLeft)
     {
         ShowLevelEndingPanel(false);
-        UpdateScore(0, 0);
-        UpdateTimeUntilNextBeer(0);
+        UpdateScore(0, totalBeerToDispatch);
+        UpdateNextRoundInfo(timeUntilNextRound, beerUnitsInOneRound);
+        UpdateRoundsLeft(roundsLeft);
     }
 
     public void UpdateScore(int score, int beersDispatched)
@@ -35,14 +37,19 @@ public class UIController : MonoBehaviour {
         TextScore.text = "Score: " + score + " / " + beersDispatched;
     }
 
-    public void UpdateTimeUntilNextBeer(int timeUntilNextBeer)
+    public void UpdateNextRoundInfo(int timeUntilNextBeer, int beerUnitsInNextRound)
     {
-        TextTimeUntilNextBeer.text = "Time until next beer: " + timeUntilNextBeer;
+        TextTimeUntilNextBeer.text = "Time until next beer: " + timeUntilNextBeer + "  (" + beerUnitsInNextRound + " liters)";
     }
 
     public void UpdateOverallScore(int score, int total)
     {
         TextOverallScore.text = score + " / " + total;
+    }
+
+    public void UpdateRoundsLeft(int roundsLeft)
+    {
+        TextRoundsLeft.text = "Rounds left: " + roundsLeft;
     }
 
     public void UpdateLevel(int level)
