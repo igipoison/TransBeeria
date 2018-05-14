@@ -21,6 +21,7 @@ public class BeerSpawner : MonoBehaviour {
 
     private float waitingForNewRoundTimer = 0.0f;
     private int numberOfBeerUnitsPerRound;
+    private int numberOfBeerUnitsLeftInTheRound;
 
     // Use this for initialization
     void Start ()
@@ -31,6 +32,9 @@ public class BeerSpawner : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (!GameManager.IsGameRunning())
+            return;
 		
         if (waitingForNewRoundTimer >= MAX_SPAWNING_INTERVAL)
         {
@@ -73,12 +77,14 @@ public class BeerSpawner : MonoBehaviour {
         else
         {
             waitingForNewRoundTimer += Time.deltaTime;
-            Game.UpdateTimeUntilNextBeer((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer));
+            GameManager.UpdateNextRoundInfo((int)(MAX_SPAWNING_INTERVAL - waitingForNewRoundTimer), numberOfBeerUnitsPerRound);
         }
 	}
 
     void DispatchAnotherRound()
     {
+        numberOfBeerUnitsLeftInTheRound = numberOfBeerUnitsPerRound;
+
         // position beer units initialy and give them sprites
         for (int i = 0; i < numberOfBeerUnitsPerRound; i++)
         {
@@ -86,7 +92,23 @@ public class BeerSpawner : MonoBehaviour {
             beerUnitInstance.transform.position = new Vector2(0.0f, i);
             beerUnitInstance.GetComponent<SpriteRenderer>().sprite = beerColorSprites[beerColorIndex];
             beerUnitInstance.tag = TagResolver.GetNameByIndex(beerColorIndex);
+            BeerHandler beerHandler = beerUnitInstance.GetComponent<BeerHandler>();
+            
+            /* set callback for BeerHandler which will notify 
+             * the BeerSpawner that the beer is destroyed */
+            beerHandler.SetBeforeDestroyCallback(() =>
+            {
+                numberOfBeerUnitsLeftInTheRound--;
+                if (numberOfBeerUnitsLeftInTheRound == 0)
+                {
+                    // this is the moment where all beer units in this round are destroyed
+                    Debug.Log("All beer from this round destroyed");
+                    GameManager.CheckIfLevelShouldEnd();
+                }
+            });
         }
-        Game.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
+        GameManager.UpdateBeersDispatched(numberOfBeerUnitsPerRound);
+        GameManager.DecreaseRoundsLeft();
+
     }
 }

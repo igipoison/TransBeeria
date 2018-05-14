@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class BeerHandler : MonoBehaviour {
     private SwitchNode lastVisitedSwitchNode = null;
     private Node nodeToVisit = null;
 
+    private Action beforeDestroyCallback;
+
     // Use this for initialization
     void Start () {
 
@@ -23,6 +26,15 @@ public class BeerHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        if (!GameManager.IsGameRunning())
+            return;
+
+        if (this.IsOutOfCameraBounds())
+        {
+            DestroyAndNotify();
+            return;
+        }
 
         if (nodeToVisit == null)
         {
@@ -51,14 +63,38 @@ public class BeerHandler : MonoBehaviour {
                 {
                     houseHandler.addLiter();
                     houseHandler.CheckAndReset();
-                    Game.UpdateScore(1);
+                    GameManager.UpdateScore(1);
                 }
-                Destroy(this.gameObject);
+                DestroyAndNotify();
             }
         }
 
-
         Vector2 translation = Time.deltaTime * beerSpeed * direction;
         this.transform.Translate(translation);
+    }
+
+    public void SetBeforeDestroyCallback(Action newBeforeDestroyCallback)
+    {
+        this.beforeDestroyCallback = newBeforeDestroyCallback;
+    }
+
+    private bool IsOutOfCameraBounds()
+    {
+        Camera mainCamera = Camera.main;
+        float screenAspect = (float)Screen.width / (float)Screen.height;
+        float cameraHeight = mainCamera.orthographicSize * 2;
+        Bounds bounds = new Bounds(
+            mainCamera.transform.position,
+            new Vector3(cameraHeight * screenAspect, cameraHeight, 0));
+
+        return (this.transform.position.x > bounds.center.x + bounds.extents.x ||
+                this.transform.position.x < bounds.center.x - bounds.extents.x ||
+                this.transform.position.y < bounds.center.y - bounds.extents.y);
+    }
+
+    private void DestroyAndNotify()
+    {
+        this.beforeDestroyCallback();
+        Destroy(this.gameObject);
     }
 }

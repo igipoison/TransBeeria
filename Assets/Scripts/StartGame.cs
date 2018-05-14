@@ -9,11 +9,7 @@ public class StartGame : MonoBehaviour {
 
     public void StartLevel(int level)
     {
-        ////Application.LoadLevel(level);
-        //if (level > 1)
-        //{
-        //    SceneManager.UnloadScene("main");
-        //}
+
         SceneManager.LoadScene("main");
     }
 
@@ -24,7 +20,6 @@ public class StartGame : MonoBehaviour {
 
     public void StartDevPage()
     {
-        ////Application.LoadLevel(level);
         SceneManager.LoadScene("devs");
     }
 
@@ -32,14 +27,12 @@ public class StartGame : MonoBehaviour {
     {
         Debug.Log("new level called");
 
-        if (currentLevel <= 4)
-            currentLevel++; 
+        currentLevel++; 
 
         if (currentLevel > 1)
         {
-           SceneManager.UnloadScene("main");
+           SceneManager.UnloadSceneAsync("main");
         }
-        ////Application.LoadLevel(level);
         SceneManager.LoadScene("main");
     }
 
@@ -47,12 +40,12 @@ public class StartGame : MonoBehaviour {
     public void BackToMenu()
     {
         SceneManager.LoadScene("menu");
-        SceneManager.UnloadScene("devs");
+        SceneManager.UnloadSceneAsync("devs");
     }
 
     public void QuitApp()
     {
-        SceneManager.UnloadScene("menu");
+        SceneManager.UnloadSceneAsync("menu");
 
     }
 }
